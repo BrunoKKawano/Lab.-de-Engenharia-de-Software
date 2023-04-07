@@ -1,8 +1,11 @@
-﻿export class User {
+﻿import { Address } from "./address";
+
+export class User {
     id?: string;
-    username?: string;
+    login?: string;
     password?: string;
-    firstName?: string;
-    lastName?: string;
+    name?: string;
+    birthDate?: string;
+    address?: Address;
     token?: string;
 }

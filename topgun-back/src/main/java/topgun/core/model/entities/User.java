@@ -21,7 +21,7 @@ public class User {
     private String name;
 
     @NonNull
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
 
@@ -31,4 +31,10 @@ public class User {
     @NonNull
     @Enumerated(EnumType.STRING)
     private Profile profile;
+
+    @NonNull
+    private String login;
+    @NonNull
+    private String password;
+
 }
