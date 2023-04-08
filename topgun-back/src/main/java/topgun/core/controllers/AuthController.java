@@ -2,9 +2,11 @@ package topgun.core.controllers;
 
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
 import topgun.core.model.dtos.JwtResponse;
 import topgun.core.model.dtos.LoginRequestDto;
+import topgun.core.model.dtos.MessageResponse;
 import topgun.core.model.dtos.UserRegistrationDto;
 import topgun.core.model.entities.Pilot;
 import topgun.core.model.entities.Profile;
@@ -60,8 +62,15 @@ public class AuthController {
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestDto loginRequest) {
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+        Authentication authentication;
+        try {
+            authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+        } catch (BadCredentialsException ex){
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse(ex.getMessage()));
+        }
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
@@ -82,7 +91,7 @@ public class AuthController {
         if (userRepository.existsByLogin(signUpRequest.getLogin())) {
             return ResponseEntity
                     .badRequest()
-                    .body("Error: Username is already taken!");
+                    .body(new MessageResponse("Error: Username is already taken!"));
         }
 
         User user = modelMapper.map(signUpRequest, User.class);
@@ -97,6 +106,6 @@ public class AuthController {
 
         userRepository.save(user);
 
-        return ResponseEntity.ok("User registered successfully!");
+        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 }

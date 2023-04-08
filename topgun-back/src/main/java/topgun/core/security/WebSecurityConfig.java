@@ -15,6 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import topgun.core.security.jwt.AuthEntryPointJwt;
 import topgun.core.security.jwt.AuthTokenFilter;
 import topgun.core.security.services.UserDetailsServiceImpl;
@@ -63,8 +64,10 @@ public class WebSecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeHttpRequests().requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/test/**").permitAll()
-                .requestMatchers("/h2-console/**").permitAll()
+                .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
                 .anyRequest().authenticated();
+
+        http.headers().frameOptions().disable();
 
         http.authenticationProvider(authenticationProvider());
 
