@@ -2,7 +2,6 @@ package topgun.core.model.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 import java.util.Date;
@@ -17,24 +16,24 @@ public class User {
     @GeneratedValue
     private long id;
 
-    @NonNull
+    @Column(nullable = false)
     private String name;
 
-    @NonNull
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id")
+    @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
-    @NonNull
+    @Column(nullable = false)
     private Date birthDate;
 
-    @NonNull
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Profile profile;
 
-    @NonNull
+    @Column(nullable = false, unique = true)
     private String login;
-    @NonNull
+
+    @Column(nullable = false)
     private String password;
 
 }

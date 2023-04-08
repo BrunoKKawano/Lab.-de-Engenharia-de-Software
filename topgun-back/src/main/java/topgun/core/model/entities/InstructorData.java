@@ -1,11 +1,10 @@
 package topgun.core.model.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
@@ -18,10 +17,10 @@ public class InstructorData {
     @GeneratedValue
     private long id;
 
-    @NonNull
+    @Column(nullable = false)
     private Date graduationDate;
-    @NonNull
+    @Column(nullable = false)
     private String courseName;
-    @NonNull
+    @Column(nullable = false)
     private String instituitionName;
 }

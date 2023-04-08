@@ -8,7 +8,7 @@ import { AccountService, AlertService } from '@app/_services';
 @Component({ templateUrl: 'add-edit.component.html' })
 export class AddEditComponent implements OnInit {
     form!: FormGroup;
-    id?: string;
+    id?: number;
     title!: string;
     loading = false;
     submitting = false;

@@ -1,10 +1,10 @@
 package topgun.core.model.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 
@@ -17,14 +17,14 @@ public class Address {
     @GeneratedValue
     private long id;
 
-    @NonNull
+    @Column(nullable = false)
     private String main;
 
     private String complement;
 
-    @NonNull
+    @Column(nullable = false)
     private String postalCode;
 
-    @NonNull
+    @Column(nullable = false)
     private String city;
 }

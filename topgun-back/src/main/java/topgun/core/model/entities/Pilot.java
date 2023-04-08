@@ -2,11 +2,7 @@ package topgun.core.model.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -22,9 +18,8 @@ public class Pilot {
     @JoinColumn(name = "instructor_data_id")
     private InstructorData instructorData;
 
-    @NonNull
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     private boolean student;

@@ -2,7 +2,6 @@ package topgun.core.model.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 import java.util.Date;
@@ -16,9 +15,9 @@ public class Flight {
     @GeneratedValue
     private long id;
 
-    @NonNull
+    @Column(nullable = false)
     private Date startDate;
-    @NonNull
+    @Column(nullable = false)
     private Date endDate;
 
     @ManyToOne
@@ -28,8 +27,7 @@ public class Flight {
     @Enumerated(EnumType.STRING)
     private Grade grade;
 
-    @NonNull
     @ManyToOne
-    @JoinColumn(name = "pilot_id")
+    @JoinColumn(name = "pilot_id", nullable = false)
     private Pilot pilot;
 }
