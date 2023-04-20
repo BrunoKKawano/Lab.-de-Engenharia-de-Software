@@ -104,8 +104,6 @@ public class AuthController {
         pilot.setUser(user);
         pilotRepository.save(pilot);
 
-        userRepository.save(user);
-
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 }
